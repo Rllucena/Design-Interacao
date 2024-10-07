@@ -1,0 +1,112 @@
+/* Estilos gerais */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    padding: 20px;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+h1 {
+    width: 100%;
+    text-align: center;
+    color: #333;
+}
+
+#painel {
+    width: 400px;
+    height: 400px;
+    background-color: #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#cartao {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    border: 2px solid #333;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.imagem {
+    margin-bottom: 10px;
+}
+
+.simbolo {
+    width: 50px;
+    height: 50px;
+    display: none;
+}
+
+#controles {
+    width: 300px;
+    background-color: #fff;
+    padding: 20px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+    margin-top: 0;
+}
+
+.form-item {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="color"], input[type="number"], input[type="text"], select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Responsividade */
+@media screen and (max-width: 768px) {
+    #painel, #controles {
+        width: 90%;
+        margin: 10px 0;
+    }
+}
