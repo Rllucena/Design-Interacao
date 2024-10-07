@@ -58,7 +58,7 @@ function atualizarCartao() {
     // Verificar se deve exibir símbolo do Grêmio ou Internacional
     const time = verificarCorFundo(corFundo);
     if (time === 'gremio') {
-        imagemSimbolo.src = 'https://pt.wikipedia.org/wiki/Ficheiro:Gremio_logo.svg';
+        imagemSimbolo.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Gremio_logo.svg/120px-Gremio_logo.svg.png';
         imagemSimbolo.style.display = 'block';
     } else if (time === 'internacional') {
         imagemSimbolo.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Scinternacional1909.png/120px-Scinternacional1909.png';
