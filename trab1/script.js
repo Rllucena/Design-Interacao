@@ -61,7 +61,7 @@ function atualizarCartao() {
         imagemSimbolo.src = 'https://pt.wikipedia.org/wiki/Ficheiro:Gremio_logo.svg';
         imagemSimbolo.style.display = 'block';
     } else if (time === 'internacional') {
-        imagemSimbolo.src = 'imagens/inter.png';
+        imagemSimbolo.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Scinternacional1909.png/120px-Scinternacional1909.png';
         imagemSimbolo.style.display = 'block';
     } else {
         imagemSimbolo.style.display = 'none';
