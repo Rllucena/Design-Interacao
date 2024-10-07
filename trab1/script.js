@@ -7,18 +7,21 @@ const imagemSimbolo = document.getElementById('imagem-simbolo');
 
 // Função para verificar se a cor é azul ou vermelha
 function verificarCorFundo(cor) {
-    const azulRegex = /^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i;
-    const vermelhoRegex = /^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i;
+    const rgb = parseInt(cor.slice(1), 16); // Converte a cor HEX para RGB
+    const r = (rgb >> 16) & 0xff;  // Valor vermelho
+    const g = (rgb >> 8) & 0xff;   // Valor verde
+    const b = rgb & 0xff;          // Valor azul
 
-    const azul = azulRegex.exec(cor);
-    const vermelho = vermelhoRegex.exec(cor);
-
-    if (azul && parseInt(azul[2], 16) > parseInt(azul[1], 16) && parseInt(azul[2], 16) > parseInt(azul[3], 16)) {
+    // Verifica se é um tom de azul (onde o valor de B é o maior comparado ao R e G)
+    if (b > r && b > g) {
         return 'gremio';
     }
-    if (vermelho && parseInt(vermelho[1], 16) > parseInt(vermelho[2], 16) && parseInt(vermelho[1], 16) > parseInt(vermelho[3], 16)) {
+
+    // Verifica se é um tom de vermelho (onde o valor de R é o maior comparado ao G e B)
+    if (r > g && r > b) {
         return 'internacional';
     }
+
     return '';
 }
 
@@ -30,6 +33,7 @@ function atualizarCartao() {
     const tamanhoTitulo = document.getElementById('tamanho-titulo').value;
     const tamanhoImagem = document.getElementById('tamanho-imagem').value;
     const novoTitulo = document.getElementById('texto-titulo').value;
+    const novoTexto = document.getElementById('texto-cartao-input').value;
     const imagemUrl = document.getElementById('imagem-url').value;
 
     // Atualizar cor de fundo e borda do cartão
@@ -44,8 +48,9 @@ function atualizarCartao() {
     imagemCartao.style.width = `${tamanhoImagem}px`;
     imagemCartao.style.height = `${tamanhoImagem}px`;
 
-    // Atualizar o título do cartão
+    // Atualizar o título e o texto do cartão
     tituloCartao.textContent = novoTitulo;
+    textoCartao.textContent = novoTexto;
 
     // Inserir a imagem no cartão, se a URL for válida
     if (imagemUrl) {
@@ -54,7 +59,7 @@ function atualizarCartao() {
     } else {
         imagemCartao.style.display = 'none';
     }
-
+   
     // Verificar se deve exibir símbolo do Grêmio ou Internacional
     const time = verificarCorFundo(corFundo);
     if (time === 'gremio') {
@@ -76,6 +81,7 @@ function resetarControles() {
     document.getElementById('tamanho-titulo').value = 24;
     document.getElementById('tamanho-imagem').value = 100;
     document.getElementById('texto-titulo').value = 'Título do Cartão';
+    document.getElementById('texto-cartao-input').value = 'Texto do cartão aparece aqui!';
     document.getElementById('imagem-url').value = '';
 
     atualizarCartao();
