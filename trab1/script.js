@@ -33,7 +33,7 @@ function atualizarCartao() {
     const tamanhoTitulo = document.getElementById('tamanho-titulo').value;
     const tamanhoImagem = document.getElementById('tamanho-imagem').value;
     const novoTitulo = document.getElementById('texto-titulo').value;
-    const novoTexto = document.getElementById('texto-cartao').value;
+    const novoTexto = document.getElementById('texto-cartao-input').value;
     const imagemUrl = document.getElementById('imagem-url').value;
 
     // Atualizar cor de fundo e borda do cartão
@@ -59,7 +59,7 @@ function atualizarCartao() {
     } else {
         imagemCartao.style.display = 'none';
     }
-   
+
     // Verificar se deve exibir símbolo do Grêmio ou Internacional
     const time = verificarCorFundo(corFundo);
     if (time === 'gremio') {
@@ -73,6 +73,7 @@ function atualizarCartao() {
     }
 }
 
+
 // Função para resetar os controles
 function resetarControles() {
     document.getElementById('fundo-cor').value = '#ffffff';
@@ -81,7 +82,7 @@ function resetarControles() {
     document.getElementById('tamanho-titulo').value = 24;
     document.getElementById('tamanho-imagem').value = 100;
     document.getElementById('texto-titulo').value = 'Título do Cartão';
-    document.getElementById('texto-cartao').value = 'Texto do cartão';
+    document.getElementById('texto-cartao-input').value = 'Texto do cartão aparece aqui!';
     document.getElementById('imagem-url').value = '';
 
     atualizarCartao();
