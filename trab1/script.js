@@ -33,7 +33,7 @@ function atualizarCartao() {
     const tamanhoTitulo = document.getElementById('tamanho-titulo').value;
     const tamanhoImagem = document.getElementById('tamanho-imagem').value;
     const novoTitulo = document.getElementById('texto-titulo').value;
-    const novoTexto = document.getElementById('texto-cartao-input').value;
+    const novoTexto = document.getElementById('texto-cartao').value;
     const imagemUrl = document.getElementById('imagem-url').value;
 
     // Atualizar cor de fundo e borda do cartão
@@ -81,7 +81,7 @@ function resetarControles() {
     document.getElementById('tamanho-titulo').value = 24;
     document.getElementById('tamanho-imagem').value = 100;
     document.getElementById('texto-titulo').value = 'Título do Cartão';
-    document.getElementById('texto-cartao-input').value = 'Texto do cartão aparece aqui!';
+    document.getElementById('texto-cartao').value = 'Texto do cartão aparece aqui!';
     document.getElementById('imagem-url').value = '';
 
     atualizarCartao();
