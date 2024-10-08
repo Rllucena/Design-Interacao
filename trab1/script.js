@@ -32,6 +32,10 @@ function verificarCorFundo(cor) {
         return 'internacional';
     }
 
+    // Verifica se é um tom de verde (onde o valor de G é o maior comparado ao R e B)
+    if (g > r && g > b) {
+        return 'RioGrande';
+    }
     return '';
 }
 
@@ -84,6 +88,9 @@ async function atualizarCartao() {
         imagemSimbolo.style.display = 'block';
     } else if (time === 'internacional') {
         imagemSimbolo.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Scinternacional1909.png/120px-Scinternacional1909.png';
+        imagemSimbolo.style.display = 'block';
+    } else if (time === 'RioGrande') {
+        imagemSimbolo.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/S.C._Rio_Grande.png/1024px-S.C._Rio_Grande.png';
         imagemSimbolo.style.display = 'block';
     } else {
         imagemSimbolo.style.display = 'none';
