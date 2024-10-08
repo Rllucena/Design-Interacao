@@ -81,7 +81,7 @@ function resetarControles() {
     document.getElementById('tamanho-titulo').value = 24;
     document.getElementById('tamanho-imagem').value = 100;
     document.getElementById('texto-titulo').value = 'Título do Cartão';
-    document.getElementById('texto-cartao').value = 'Texto do cartão aparece aqui!';
+    document.getElementById('texto-cartao').value = 'Texto do cartão';
     document.getElementById('imagem-url').value = '';
 
     atualizarCartao();
