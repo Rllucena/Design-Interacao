@@ -36,7 +36,7 @@ function verificarCorFundo(cor) {
 }
 
 // Função para atualizar os estilos do cartão
-function atualizarCartao() {
+async function atualizarCartao() {
     const corFundo = document.getElementById('fundo-cor').value;
     const bordaEstilo = document.getElementById('borda-estilo').value;
     const tamanhoTexto = document.getElementById('tamanho-texto').value;
