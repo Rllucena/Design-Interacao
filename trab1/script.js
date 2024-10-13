@@ -74,11 +74,8 @@ async function atualizarCartao() {
             imagemCartao.src = imagemUrl;
             imagemCartao.style.display = 'block';
         } else {
-            //imagemCartao.style.display = 'none';
-            imagemCartao.src = https://salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled-1150x647.png;  // Exibir um image not found no lugar da imagem
+            imagemCartao.src = 'https://salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled-1150x647.png';  // Exibir um image not found no lugar da imagem
         }
-    } else {
-        imagemCartao.style.display = 'none';
     }
    
     // Verificar se deve exibir símbolo do Grêmio ou Internacional
