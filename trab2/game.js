@@ -1,31 +1,62 @@
 const gameArea = document.getElementById("game-area");
 const player = document.getElementById("player");
+const gameOverMessage = document.getElementById("game-over-message");
 let score = 0;
 let aliens = [];
 let alienInterval;
 let bulletInterval;
-let randomAlienInterval;
-
-// Música de fundo
-const backgroundMusic = new Audio("https://soundcloud.com/alex-ball-1/korobeiniki");
+let alienDirection = 1;
+let canShoot = true;
+let bulletSpeed = 20;
+let additionalBullets = 0;
+let powerUpInterval;
+const backgroundMusic = new Audio("URL_DA_MUSICA.mp3");
 backgroundMusic.loop = true;
-
-// Som de tiro
 const shootSound = new Audio("URL_DO_SOM_DO_TIRO.mp3");
 
 function startGame() {
-  document.getElementById("start-button").style.display = "none";
+  // Alterar o botão para "Reiniciar" ao iniciar o jogo
+  const startButton = document.getElementById("start-button");
+  startButton.innerText = "Reiniciar";
+
+  // Limpar o jogo caso ele já tenha sido iniciado antes
+  resetGame();
+
+  // Inicializar variáveis de jogo e elementos na tela
   score = 0;
   document.getElementById("score").innerText = score;
-
   spawnAliens();
-  alienInterval = setInterval(moveAliens, 180);
+  alienInterval = setInterval(moveAliens, 120);
   bulletInterval = setInterval(shootBullet, 500);
 
-  // Tocar a música de fundo
   backgroundMusic.play();
-
   document.addEventListener("keydown", handleKeyPress);
+}
+
+function resetGame() {
+  // Parar qualquer intervalo em execução
+  clearInterval(alienInterval);
+  clearInterval(bulletInterval);
+
+  // Remover alienígenas e balas da tela
+  aliens.forEach(alien => gameArea.removeChild(alien));
+  aliens = [];
+  const bullets = document.querySelectorAll(".bullet");
+  bullets.forEach(bullet => gameArea.removeChild(bullet));
+
+  // Remover todos os power-ups da tela
+  const powerUps = document.querySelectorAll(".power-up");
+  powerUps.forEach(powerUp => gameArea.removeChild(powerUp));
+
+  // Resetar configurações de power-ups e variáveis do jogador
+  canShoot = true;
+  bulletSpeed = 20;
+  additionalBullets = 0;
+
+  // Resetar mensagem de fim de jogo caso esteja visível
+  gameOverMessage.style.display = "none";
+  gameOverMessage.style.animation = ""; // Remover animação para reiniciar corretamente
+  gameOverMessage.innerText = ""; // Limpar o texto para evitar conflitos
 }
 
 function spawnAliens() {
@@ -34,71 +65,55 @@ function spawnAliens() {
     alien.classList.add("alien");
     alien.style.top = `${Math.floor(i / 10) * 40}px`;
     alien.style.left = `${(i % 10) * 45 + 15}px`;
-    alien.direction = 1; // Inicialmente, todos se movem para a direita
     gameArea.appendChild(alien);
     aliens.push(alien);
   }
 }
 
 function moveAliens() {
-  if (aliens.length > 15) {
-    // Movimentação em conjunto enquanto há mais de 15 alienígenas
+  let hitWall = false;
+
+  aliens.forEach((alien) => {
+    let left = parseInt(alien.style.left) + 5 * alienDirection;
+    alien.style.left = `${left}px`;
+
+    if (left <= 0 || left >= gameArea.offsetWidth - alien.offsetWidth) {
+      hitWall = true;
+    }
+  });
+
+  if (hitWall) {
+    alienDirection *= -1;
+
     aliens.forEach((alien) => {
-      let top = parseInt(alien.style.top) + 2;
+      let top = parseInt(alien.style.top) + 20;
       alien.style.top = `${top}px`;
 
       if (top >= 370) {
-        endGame("Perdeu! Os alienígenas chegaram ao chão!");
+        showEndGameMessage("Perdeu! Os alienígenas chegaram ao chão!");
       }
     });
-  } else {
-    // Movimentação independente mais lenta quando restam 15 ou menos alienígenas
-    if (!randomAlienInterval) {
-      clearInterval(alienInterval);
-      randomAlienInterval = setInterval(moveAliensIndividually, 240); 
-    }
   }
 }
 
-function moveAliensIndividually() {
-  aliens.forEach((alien) => {
-    let top = parseInt(alien.style.top) + 2;
-    alien.style.top = `${top}px`;
-
-    if (top >= 370) {
-      endGame("Perdeu! Os alienígenas chegaram ao chão!");
-    }
-
-    // Movimento aleatório para a esquerda ou direita
-    let left = parseInt(alien.style.left);
-    if (Math.random() < 0.5) {
-      alien.style.left = left + 5 * alien.direction + "px";
-    } else {
-      alien.style.left = left - 5 * alien.direction + "px";
-    }
-
-    // Mudar a direção aleatoriamente
-    if (Math.random() < 0.05) {
-      alien.direction *= -1; // Inverte a direção
-    }
-  });
-}
-
 function shootBullet() {
-  const bullet = document.createElement("div");
-  bullet.classList.add("bullet");
-  bullet.style.left = player.offsetLeft + 12 + "px";
-  bullet.style.top = player.offsetTop - 10 + "px";
-  gameArea.appendChild(bullet);
+  if (!canShoot) return;
 
-  // Tocar som do tiro
-  shootSound.currentTime = 0;
-  shootSound.play();
+  for (let i = 0; i <= additionalBullets; i++) {
+    const bullet = document.createElement("div");
+    bullet.classList.add("bullet");
+    bullet.style.left = player.offsetLeft + 12 + "px";
+    bullet.style.top = player.offsetTop - 10 + "px";
+    gameArea.appendChild(bullet);
 
-  let bulletMove = setInterval(() => {
-    bullet.style.top = bullet.offsetTop - 5 + "px";
-    checkBulletCollision(bullet, bulletMove);
-  }, 20);
+    shootSound.currentTime = 0;
+    shootSound.play();
+
+    let bulletMove = setInterval(() => {
+      bullet.style.top = bullet.offsetTop - bulletSpeed + "px";
+      checkBulletCollision(bullet, bulletMove);
+    }, 20);
+  }
 }
 
 function checkBulletCollision(bullet, bulletMove) {
@@ -112,11 +127,69 @@ function checkBulletCollision(bullet, bulletMove) {
       score += 10;
       document.getElementById("score").innerText = score;
 
+      // Chance de 5% para gerar um power-up
+      if (Math.random() < 0.05) spawnPowerUp(alien.offsetLeft, alien.offsetTop);
+
       if (aliens.length === 0) {
-        endGame("Parabéns! Você derrotou todos os alienígenas!");
+        showEndGameMessage("Parabéns! Você derrotou todos os alienígenas!");
       }
     }
   });
+}
+
+function spawnPowerUp(x, y) {
+  const powerUp = document.createElement("div");
+  powerUp.classList.add("power-up");
+
+  const type = Math.floor(Math.random() * 3);
+  switch (type) {
+    case 0:
+      powerUp.classList.add("blue");
+      powerUp.dataset.type = "speed";
+      break;
+    case 1:
+      powerUp.classList.add("red");
+      powerUp.dataset.type = "extraBullet";
+      break;
+    case 2:
+      powerUp.classList.add("yellow");
+      powerUp.dataset.type = "freeze";
+      break;
+  }
+
+  powerUp.style.left = x + "px";
+  powerUp.style.top = y + "px";
+  gameArea.appendChild(powerUp);
+
+  let powerUpInterval = setInterval(() => {
+    powerUp.style.top = powerUp.offsetTop + 2 + "px";
+
+    if (isColliding(powerUp, player)) {
+      clearInterval(powerUpInterval);
+      applyPowerUp(powerUp.dataset.type);
+      gameArea.removeChild(powerUp);
+    } else if (powerUp.offsetTop > gameArea.offsetHeight) {
+      clearInterval(powerUpInterval);
+      gameArea.removeChild(powerUp);
+    }
+  }, 30);
+}
+
+function applyPowerUp(type) {
+  switch (type) {
+    case "speed":
+      bulletSpeed *= 1.5;
+      break;
+    case "extraBullet":
+      additionalBullets += 1;
+      break;
+    case "freeze":
+      clearInterval(alienInterval);
+      setTimeout(() => {
+        alienInterval = setInterval(moveAliens, 120);
+      }, 5000); // Congela os alienígenas por 5 segundos
+      break;
+  }
 }
 
 function isColliding(el1, el2) {
@@ -151,14 +224,37 @@ function handleKeyPress(e) {
   }
 }
 
+
 function endGame(message) {
   clearInterval(alienInterval);
   clearInterval(bulletInterval);
-  clearInterval(randomAlienInterval);
   backgroundMusic.pause();
   backgroundMusic.currentTime = 0;
   alert(message);
   aliens.forEach((alien) => gameArea.removeChild(alien));
   aliens = [];
   document.getElementById("start-button").style.display = "block";
+}
+
+function showEndGameMessage(message) {
+  gameOverMessage.innerText = message;
+  gameOverMessage.style.display = "block";
+  gameOverMessage.style.animation = "slide-down 20s forwards";
+
+  clearInterval(alienInterval);
+  clearInterval(bulletInterval);
+  backgroundMusic.pause();
+  backgroundMusic.currentTime = 0;
+
+  // Remover qualquer listener anterior para evitar duplicação
+  gameOverMessage.removeEventListener("animationend", hideEndGameMessage);
+
+  // Adiciona um listener para ocultar a mensagem ao final da animação
+  gameOverMessage.addEventListener("animationend", hideEndGameMessage);
+}
+
+// Função para ocultar a mensagem ao final da animação
+function hideEndGameMessage() {
+  gameOverMessage.style.display = "none";
+  gameOverMessage.style.animation = ""; // Reseta a animação para reutilizar
 }
