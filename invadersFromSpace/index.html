@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Space Invaders - JS</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="game-container">
+    <h1>Space Invaders</h1>
+    <div id="game-area">
+      <div id="player"></div>
+    </div>
+    <div id="controls">
+      <button onclick="movePlayer('up')">↑ Cima (W)</button>
+      <button onclick="movePlayer('left')">← Esquerda (A)</button>
+      <button onclick="movePlayer('right')">→ Direita (D)</button>
+      <button onclick="movePlayer('down')">↓ Baixo (S)</button>
+    </div>
+    <p id="status">Pontuação: <span id="score">0</span></p>
+    <button id="start-button" onclick="startGame()">Iniciar Jogo</button>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>
