@@ -286,7 +286,6 @@ function hideEndGameMessage() {
   gameOverMessage.style.animation = ""; // Reseta a animação para reutilizar
 }
 
-
 // Adiciona evento de clique e toque para mover a nave
 gameArea.addEventListener("click", movePlayerToPoint);
 gameArea.addEventListener("touchstart", movePlayerToPoint);
@@ -311,4 +310,3 @@ function movePlayerToPoint(event) {
   player.style.left = `${newLeft}px`;
   player.style.top = `${newTop}px`;
 }
-
