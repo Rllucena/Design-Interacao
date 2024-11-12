@@ -10,9 +10,9 @@ let canShoot = true;
 let bulletSpeed = 20;
 let additionalBullets = 0;
 let powerUpInterval;
-const backgroundMusic = new Audio("URL_DA_MUSICA.mp3");
+const backgroundMusic = new Audio("theme.mp3");
 backgroundMusic.loop = true;
-const shootSound = new Audio("URL_DO_SOM_DO_TIRO.mp3");
+const shootSound = new Audio("pew.mp3");
 
 function startGame() {
   // Alterar o botão para "Reiniciar" ao iniciar o jogo
@@ -21,16 +21,30 @@ function startGame() {
 
   // Limpar o jogo caso ele já tenha sido iniciado antes
   resetGame();
+  updateHighScore(); // Exibe a maior pontuação ao iniciar o jogo
 
   // Inicializar variáveis de jogo e elementos na tela
   score = 0;
   document.getElementById("score").innerText = score;
   spawnAliens();
-  alienInterval = setInterval(moveAliens, 120);
-  bulletInterval = setInterval(shootBullet, 500);
 
-  backgroundMusic.play();
-  document.addEventListener("keydown", handleKeyPress);
+ // Ajuste a velocidade dos alienígenas com base no tamanho da tela
+  let screenWidth = window.innerWidth;
+  let alienSpeed;
+
+  if (screenWidth < 600) {
+    alienSpeed = 2200; // Velocidade mais lenta para telas pequenas
+  } else if (screenWidth < 1000) {
+    alienSpeed = 150; // Velocidade intermediária para telas médias
+  } else {
+    alienSpeed = 120; // Velocidade normal para telas grandes
+  }
+
+ alienInterval = setInterval(moveAliens, alienSpeed);
+ bulletInterval = setInterval(shootBullet, 500);
+
+ backgroundMusic.play();
+ document.addEventListener("keydown", handleKeyPress);
 }
 
 function resetGame() {
@@ -106,6 +120,7 @@ function shootBullet() {
     bullet.style.top = player.offsetTop - 10 + "px";
     gameArea.appendChild(bullet);
 
+    shootSound.volume = 0.1; // Diminui o volume para 20% do total
     shootSound.currentTime = 0;
     shootSound.play();
 
@@ -236,6 +251,15 @@ function endGame(message) {
   document.getElementById("start-button").style.display = "block";
 }
 
+function updateHighScore() {
+  let highScore = localStorage.getItem('highScore') || 0;
+  if (score > highScore) {
+    highScore = score;
+    localStorage.setItem('highScore', highScore);
+  }
+  document.getElementById("high-score").innerText = `Maior Pontuação: ${highScore}`;
+}
+
 function showEndGameMessage(message) {
   gameOverMessage.innerText = message;
   gameOverMessage.style.display = "block";
@@ -246,7 +270,10 @@ function showEndGameMessage(message) {
   backgroundMusic.pause();
   backgroundMusic.currentTime = 0;
 
-  // Remover qualquer listener anterior para evitar duplicação
+  // Atualiza a maior pontuação
+  updateHighScore();
+
+  // Remove qualquer listener anterior para evitar duplicação
   gameOverMessage.removeEventListener("animationend", hideEndGameMessage);
 
   // Adiciona um listener para ocultar a mensagem ao final da animação
