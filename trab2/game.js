@@ -285,3 +285,30 @@ function hideEndGameMessage() {
   gameOverMessage.style.display = "none";
   gameOverMessage.style.animation = ""; // Reseta a animação para reutilizar
 }
+
+
+// Adiciona evento de clique e toque para mover a nave
+gameArea.addEventListener("click", movePlayerToPoint);
+gameArea.addEventListener("touchstart", movePlayerToPoint);
+
+function movePlayerToPoint(event) {
+  // Verifica se o evento é de toque e ajusta as coordenadas para mobile
+  const x = event.touches ? event.touches[0].clientX : event.clientX;
+  const y = event.touches ? event.touches[0].clientY : event.clientY;
+
+  // Calcula a posição ajustada para manter a nave centralizada no ponto tocado/clicado
+  const gameAreaRect = gameArea.getBoundingClientRect();
+  const newLeft = Math.min(
+    gameArea.offsetWidth - player.offsetWidth,
+    Math.max(0, x - gameAreaRect.left - player.offsetWidth / 2)
+  );
+  const newTop = Math.min(
+    gameArea.offsetHeight - player.offsetHeight,
+    Math.max(0, y - gameAreaRect.top - player.offsetHeight / 2)
+  );
+
+  // Move a nave para a nova posição
+  player.style.left = `${newLeft}px`;
+  player.style.top = `${newTop}px`;
+}
+
