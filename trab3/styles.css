@@ -22,6 +22,10 @@ header h1 {
     margin: 0;
 }
 
+.hidden {
+    display: none;
+}
+
 /* Seção de países */
 #countries-section {
     margin: 20px;

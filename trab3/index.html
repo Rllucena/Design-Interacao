@@ -16,7 +16,7 @@
     <main>
         <section id="countries-section">
             <h2>Informações sobre Países</h2>
-            <p>Escolha um país para ver informações detalhadas.</p>
+            <p>Escolha um país na lista abaixo para ver informações detalhadas.</p>
             <select id="country-select">
                 <option value="" disabled selected>Selecione um país</option>
             </select>
@@ -28,15 +28,15 @@
             <!-- PIX Section -->
             <div id="pix">
                 <h3>Consulta à API do PIX</h3>
-                <button id="pix-button">Consultar Participantes PIX</button>
-                
+                <button id="pix-button">Clique aqui para consultar Participantes do PIX</button>
                 <div id="pix-result" class="scrollable hidden"></div>
+                <button id="hide-pix-button" class="hidden">Esconder Resultados</button> <!-- Adicionado aqui -->
             </div>
         
             <!-- FIPE Section -->
             <div id="fipe">
                 <h3>Consulta à API da FIPE</h3>
-                <label for="fipe-type">Escolha o tipo de veículo:</label>
+                <label for="fipe-type">Escolha o tipo de veículo no menu abaixo:</label>
                 <select id="fipe-type">
                     <option value="" disabled selected>Selecione</option>
                     <option value="carros">Carros</option>
@@ -49,7 +49,7 @@
                     
                 </div>
                 <div id="fipe-code-container">
-                    <label for="fipe-code">Código FIPE:</label>
+                    <label for="fipe-code">Digite o código FIPE abaixo e clique em consultar para ver dados dos veículos:</label>
                     <input type="text" id="fipe-code" placeholder="Digite o código FIPE">
                     <button id="fipe-code-button">Consultar</button>
                 </div>

@@ -14,9 +14,10 @@ document.getElementById('country-select').addEventListener('change', (event) => 
 
 
 // PIX Section
+
 document.getElementById('pix-button').addEventListener('click', async () => {
     const resultDiv = document.getElementById('pix-result');
-    const hideButton = document.getElementById('hide-pix-button');
+    const hideButton = document.getElementById('hide-pix-button'); // Certifique-se de que o botão exista
     resultDiv.innerHTML = ''; // Limpar resultados anteriores
 
     try {
@@ -27,12 +28,21 @@ document.getElementById('pix-button').addEventListener('click', async () => {
             resultDiv.appendChild(p);
         });
         resultDiv.classList.remove('hidden');
-        hideButton.classList.remove('hidden');
+        hideButton.classList.remove('hidden'); // Tornar o botão visível
     } catch (error) {
         resultDiv.innerHTML = `<p>Erro: ${error.message}</p>`;
         resultDiv.classList.remove('hidden');
     }
 });
+
+// Lógica para esconder resultados do PIX
+document.getElementById('hide-pix-button').addEventListener('click', () => {
+    const resultDiv = document.getElementById('pix-result');
+    const hideButton = document.getElementById('hide-pix-button');
+    resultDiv.classList.add('hidden');
+    hideButton.classList.add('hidden');
+});
+
 
 
 
