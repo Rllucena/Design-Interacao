@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Curiosidades</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script type="module" src="./main.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Página de Curiosidades e Utilidade Pública</h1>
+        <p>Explore informações sobre países e consulte APIs úteis.</p>
+        
+    </header>
+    <main>
+        <section id="countries-section">
+            <h2>Informações sobre Países</h2>
+            <p>Escolha um país para ver informações detalhadas.</p>
+            <select id="country-select">
+                <option value="" disabled selected>Selecione um país</option>
+            </select>
+            <div id="country-info"></div>
+        </section>
+        <section id="api-section">
+            <h2>Consultas a APIs</h2>
+        
+            <!-- PIX Section -->
+            <div id="pix">
+                <h3>Consulta à API do PIX</h3>
+                <button id="pix-button">Consultar Participantes PIX</button>
+                
+                <div id="pix-result" class="scrollable hidden"></div>
+            </div>
+        
+            <!-- FIPE Section -->
+            <div id="fipe">
+                <h3>Consulta à API da FIPE</h3>
+                <label for="fipe-type">Escolha o tipo de veículo:</label>
+                <select id="fipe-type">
+                    <option value="" disabled selected>Selecione</option>
+                    <option value="carros">Carros</option>
+                    <option value="motos">Motos</option>
+                    <option value="caminhoes">Caminhões</option>
+                </select>
+                <div id="fipe-brands-container" class="hidden">
+                    <h4>Marcas:</h4>
+                    <div id="fipe-brands" class="scrollable"></div>
+                    
+                </div>
+                <div id="fipe-code-container">
+                    <label for="fipe-code">Código FIPE:</label>
+                    <input type="text" id="fipe-code" placeholder="Digite o código FIPE">
+                    <button id="fipe-code-button">Consultar</button>
+                </div>
+                <div id="fipe-result" class="scrollable"></div>
+            </div>
+        </section>
+        
+    </main>
+    <footer>
+        <p>&copy; 2024 - Página de Curiosidades e Utilidades</p>
+    </footer>
+</body>
+</html>

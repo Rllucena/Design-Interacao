@@ -1,0 +1,147 @@
+/* Geral */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+/* Header com imagem de fundo */
+header {
+    text-align: center;
+    padding: 40px;
+    background-image: url('https://cdn.pixabay.com/photo/2020/01/23/21/07/seascape-4788749_1280.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+header h1 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+/* Seção de países */
+#countries-section {
+    margin: 20px;
+    padding: 20px;
+    background-image: url('https://media.istockphoto.com/id/685881672/pt/foto/south-america-3d-render-planet-earth-clouds.jpg?s=2048x2048&w=is&k=20&c=npWgaVsjU-uaAQ3YoOdti6qpJnJZZQS17EUf_JfbBCs=');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#countries-section h2, 
+#countries-section label {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Seção de APIs */
+#api-section {
+    margin: 20px;
+    padding: 20px;
+    position: relative;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+#api-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Flag_of_Brazil.svg/1200px-Flag_of_Brazil.svg.png');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.5; 
+    z-index: -1;
+}
+
+#api-section h2 {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* PIX Section */
+#pix {
+    margin: 20px;
+    padding: 20px;
+    background-image: url('https://logopng.com.br/logos/pix-106.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgb(187, 241, 196);
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#pix h3, 
+#pix label {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Seção de FIPE */
+#fipe {
+    margin: 20px;
+    padding: 20px;
+    background-image: url('https://cdn.pixabay.com/photo/2017/03/28/09/11/unimog-2181442_1280.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#fipe h3, 
+#fipe label {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Controles e campos */
+label, select, input, button {
+    display: block;
+    margin: 10px 0;
+    color: #333;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Elementos roláveis */
+.scrollable {
+    max-height: 200px;
+    overflow-y: auto;
+    background: rgba(25, 55, 189, 0.9);
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    header {
+        padding: 20px;
+    }
+    #countries-section, #api-section, #fipe, #pix {
+        padding: 15px;
+    }
+}
