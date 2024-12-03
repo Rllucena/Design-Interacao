@@ -19,6 +19,7 @@ document.getElementById('pix-button').addEventListener('click', async () => {
     const resultDiv = document.getElementById('pix-result');
     const hideButton = document.getElementById('hide-pix-button'); // Certifique-se de que o botão exista
     resultDiv.innerHTML = ''; // Limpar resultados anteriores
+    
     //**Destructuring**
     try {
         const participants = await fetchPixParticipants();
@@ -52,6 +53,7 @@ document.getElementById('fipe-type').addEventListener('change', async (event) =>
     const brandsContainer = document.getElementById('fipe-brands-container');
     const brandsDiv = document.getElementById('fipe-brands');
     brandsDiv.innerHTML = ''; // Limpar opções anteriores
+    
     //**Destructuring**
     try {
         const brands = await fetchFipeBrands(type);

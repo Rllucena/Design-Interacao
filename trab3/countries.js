@@ -21,7 +21,7 @@ export async function loadCountries() {
 
 export async function displayCountryInfo(sigla) {
     try {
-        //**Destructuring**
+
         const response = await fetch('https://raw.githubusercontent.com/Rllucena/Design-Interacao/main/trab3/paises.json');
         if (!response.ok) throw new Error('Erro ao carregar os países.');
         
@@ -30,6 +30,7 @@ export async function displayCountryInfo(sigla) {
         if (!country) throw new Error('País não encontrado.');
         
         const infoDiv = document.getElementById('country-info');
+        //**Destructuring**
         infoDiv.innerHTML = `
             <p><strong>País:</strong> ${country.nome_pais}</p>
             <p><strong>Gentílico:</strong> ${country.gentilico}</p>

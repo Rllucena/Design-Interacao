@@ -1,4 +1,4 @@
-//**Destructuring**
+
 export async function fetchPixParticipants() {
     try {
         const response = await fetch('https://brasilapi.com.br/api/pix/v1/participants');
